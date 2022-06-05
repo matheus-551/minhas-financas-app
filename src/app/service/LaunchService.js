@@ -55,8 +55,8 @@ class LaunchService extends ApiService {
             params = `${params}&mes=${lancamentoFiltro.mes}`;
         }
 
-        if(lancamentoFiltro.tipo) {
-            params = `${params}&tipoLancamento=${lancamentoFiltro.tipo}`;
+        if(lancamentoFiltro.tipoLancamento) {
+            params = `${params}&tipoLancamento=${lancamentoFiltro.tipoLancamento}`;
         }
 
         if(lancamentoFiltro.usuario) {
