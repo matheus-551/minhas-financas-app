@@ -32,8 +32,16 @@ class LaunchService extends ApiService {
         ]
     }
 
+    findById(id) {
+        return this.get(`/${id}`)
+    }
+
     save(release) {
         return this.post("/", release);
+    }
+
+    update(release) {
+        return this.put(`/${release.id}`, release);
     }
 
     userReleaseList(id) {

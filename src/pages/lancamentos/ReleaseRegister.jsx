@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import {Link, useNavigate, useParams} from 'react-router-dom'
 
 import { Card } from '../../components/Card';
 import { FormGroup } from '../../components/FormGroup';
@@ -15,6 +15,7 @@ export function ReleaseRegister() {
     const months = launchService.listMonths();
 
     const navigate = useNavigate();
+    const paramsURL = useParams();
 
     const [release, setRelease] = useState({
         id: null,
@@ -22,9 +23,23 @@ export function ReleaseRegister() {
         mes: '',
         ano: '',
         valor: '',
-        tiporelease: '',
-        status: ''
+        tipo: '',
+        status: '',
+        usuario: null
     });
+
+    useEffect(() => {
+        const params = paramsURL.id;
+
+        if(params) {
+            launchService.findById(params)
+                .then( response => {
+                    setRelease( {...response.data} );
+                }).catch( error => {
+                    ErrorMessage(error.response.data);
+                });
+        }
+    }, []);
 
     //Método responsável por pegar os valores dos inputs e salva-los no state
     const handlerDataChange = (event) => {
@@ -37,15 +52,15 @@ export function ReleaseRegister() {
     const sendRegisterRelease = () => {
         const LoggedUser = JSON.parse(localStorage.getItem("logged_user"));
         
-        const {ano, descricao, mes, valor, tiporelease} = release;
+        const {ano, descricao, mes, valor, tipo} = release;
         
         const lancamento = {
             ano,
             descricao,
             mes,
             valor,
+            tipo,
             usuario: LoggedUser.id,
-            tipo: tiporelease
         }
 
         launchService.save(lancamento)
@@ -57,8 +72,31 @@ export function ReleaseRegister() {
             })
     }
 
+    const updatedRelease = () => { 
+        const {id, ano, descricao, mes, valor, tipo, status, usuario} = release;
+        
+        const lancamento = {
+            id,
+            ano,
+            descricao,
+            mes,
+            valor,
+            tipo,
+            status,
+            usuario
+        }
+
+        launchService.update(lancamento)
+            .then( response => {
+                SuccessMessage("Lançamento atualizado com sucesso !");
+                navigate("/meus-lancamentos");
+            }).catch( error => {
+                ErrorMessage(error.response.data);
+            })
+    }
+
     return (
-        <Card title="Cadastro de lançamento">
+        <Card title={paramsURL.id ? "Editar lançamento" : "Cadastro lançamento"}>
             <fieldset>
                 <div className="row">
                     <div className="col-md-12">
@@ -109,12 +147,12 @@ export function ReleaseRegister() {
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup label="Tipo: *" htmlFor="tiporelease">
+                        <FormGroup label="Tipo: *" htmlFor="tipo">
                             <SelectMenu className="form-control" 
                                 list={releaseTypes}
-                                id="tiporelease"
-                                name="tiporelease"
-                                value={release.tiporelease}
+                                id="tipo"
+                                name="tipo"
+                                value={release.tipo || ''}
                                 onChange={handlerDataChange}/>
                         </FormGroup>
                     </div>
@@ -132,7 +170,14 @@ export function ReleaseRegister() {
 
                 <div className="row">
                     <div className="col-md-6">
-                        <button onClick={sendRegisterRelease} type="button" className="btn btn-success">Cadastrar</button>
+                        {
+                            paramsURL.id 
+                            ?
+                            <button onClick={updatedRelease} type="button" className="btn btn-success">Atualizar</button>
+                            :
+                            <button onClick={sendRegisterRelease} type="button" className="btn btn-success">Cadastrar</button>
+                        }
+                        
                         <Link to="/meus-lancamentos" className="btn btn-danger">Cancelar</Link>
                     </div>
                 </div>

@@ -16,7 +16,9 @@ export function AppRoute() {
                 <Route path="/home" element={<Home/>}/>
                 <Route path="/cadastro-usuarios" element={<UserRegister/>}/> 
                 <Route path="/meus-lancamentos" element={<MyReleases/>}/>
-                <Route path="/cadastro-lancamento" element={<ReleaseRegister/>}/>
+                <Route path="/cadastro-lancamento" element={<ReleaseRegister/>}>
+                    <Route path="/cadastro-lancamento/:id" element={<ReleaseRegister/>}/>
+                </Route>
             </Routes>
         </HashRouter>
     )

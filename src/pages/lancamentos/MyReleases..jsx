@@ -1,6 +1,5 @@
 import React,{ useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FormGroup } from '../../components/FormGroup';
 import { SelectMenu } from '../../components/SelectMenu';
@@ -14,6 +13,8 @@ import { Button } from 'primereact/button';
 
 export function MyReleases() {
     const lauchService = new LaunchService();
+
+    const navegate = useNavigate();
 
     // Lista dos tipos de lançamentos para o form de filtro
     const releaseTypes = lauchService.releaseTypeList();
@@ -61,7 +62,7 @@ export function MyReleases() {
     }, [])
 
     const editRelease = (lancamento) => {
-        console.log("editando lançamento" + " "  + lancamento.id);
+        navegate(`/cadastro-lancamento/${lancamento.id}`)
     }
 
     const handleDeletionConfirmation = (lancamento) => {
@@ -133,7 +134,7 @@ export function MyReleases() {
                         >
                         Filtrar lançamento</button>
                     <Link className="btn btn-success"
-                        to="/cadastro-lancamento">
+                        to="/cadastro-lancamento/">
                         Cadastrar Lançamento
                     </Link>
                 </div>
