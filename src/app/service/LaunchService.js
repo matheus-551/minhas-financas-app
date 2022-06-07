@@ -1,5 +1,7 @@
 import ApiService from '../ApiService';
 
+import ValidationError from '../exception/ValidationError';
+
 class LaunchService extends ApiService {
 
     constructor() {
@@ -34,6 +36,34 @@ class LaunchService extends ApiService {
 
     findById(id) {
         return this.get(`/${id}`)
+    }
+
+    validate(release) {
+        const errors = [];
+
+        if(!release.ano) {
+            errors.push("O campo Ano é obrigatório");
+        }
+
+        if(!release.mes) {
+            errors.push("O campo Mês é obrigatório");
+        }
+
+        if(!release.descricao) {
+            errors.push("O campo Descrição é obrigatório");
+        }
+
+        if(!release.valor) {
+            errors.push("O campo Valor é obrigatório");
+        }
+
+        if(!release.tipo) {
+            errors.push("Defina o tipo de lançamento");
+        }
+
+        if(errors && errors.length > 0) {
+            throw new ValidationError(errors);
+        }
     }
 
     save(release) {

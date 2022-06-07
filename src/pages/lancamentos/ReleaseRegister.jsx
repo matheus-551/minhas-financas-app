@@ -50,8 +50,8 @@ export function ReleaseRegister() {
 
     //Método que enviar o novo lançamento para o back-end
     const sendRegisterRelease = () => {
-        const LoggedUser = JSON.parse(localStorage.getItem("logged_user"));
         
+        const LoggedUser = JSON.parse(localStorage.getItem("logged_user"));
         const {ano, descricao, mes, valor, tipo} = release;
         
         const lancamento = {
@@ -61,6 +61,14 @@ export function ReleaseRegister() {
             valor,
             tipo,
             usuario: LoggedUser.id,
+        }
+        
+        try {
+            launchService.validate(lancamento);
+        }catch (error) {
+            const msgs = error.messages;
+            msgs.forEach(msg => ErrorMessage(msg) );
+            return false;
         }
 
         launchService.save(lancamento)

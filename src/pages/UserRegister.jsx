@@ -26,45 +26,26 @@ export function UserRegister() {
         setUser(values => ( {...values, [name]: value} ))
     }
 
-    const validate = () => {
-        const msgs = [];
-
-        if(!user.nome) {
-            msgs.push("O campo nome é obrigatório.")
-        }
-
-        if(!user.email) {
-            msgs.push("O campo email é obrigatório.")
-        }else if(!user.email.match(/^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-z]/)) {
-            msgs.push("Informe um email válido.");
-        }
-
-        if(!user.senha || !user.repeticaoSenha) {
-            msgs.push("Digite a senha 2x.")
-        }else if(user.senha !== user.repeticaoSenha) {
-            msgs.push("As senhas precisam ser identicas.")
-        }
-
-        return msgs;
-    }
-
     // método responsável por fazer o cadastro do usuário
     const sendRegisterUser = () => {
-       const msgs = validate();
+        const { nome, email, senha, repeticaoSenha} = user;
 
-       if(msgs && msgs.length > 0) {
-           msgs.forEach( (msg, index) => {
-                ErrorMessage(msg)
-           });
+        const usuario = {
+            nome,
+            email,
+            senha,
+            repeticaoSenha
+        }
 
-           return false;
-       }
+        try {
+            userService.validate(usuario);
+        }catch (error) {
+            const msgs = error.messages;
+            msgs.forEach(message => ErrorMessage(message));
+            return false;
+        }
 
-       userService.save({
-           "nome": user.nome,
-           "email": user.email,
-           "senha": user.senha
-       }).then( response => {
+       userService.save(usuario).then( response => {
            SuccessMessage("Usuário cadastrado com sucesso !");
            navegate("/login");
        }).catch( error => {
