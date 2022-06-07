@@ -70,3 +70,7 @@
 table tr td .btn-primary {
     margin-right: 8px;
 }
+
+table tr td .btn-secondary, table tr td .btn-success {
+    margin-right: 8px;
+}

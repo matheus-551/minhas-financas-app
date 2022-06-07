@@ -70,6 +70,10 @@ class LaunchService extends ApiService {
         return this.post("/", release);
     }
 
+    changeStatus(id, status) {
+        return this.put(`/${id}/atualiza-status`, { status })
+    }
+
     update(release) {
         return this.put(`/${release.id}`, release);
     }

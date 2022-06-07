@@ -25,7 +25,7 @@ export function Home() {
 
     return (
         <div className="jumbotron">
-            <h1 className="display-3">Bem vinde</h1>
+            <h1 className="display-3">Bem vindx</h1>
             <p className="lead">Esse é seu sistema de finanças.</p>
             <p className="lead">Seu saldo para o mês atual é de  
             <span className="balance"> R$: {currencyFormatter.format(balance, {locale: 'pt-BR'}) }</span></p>

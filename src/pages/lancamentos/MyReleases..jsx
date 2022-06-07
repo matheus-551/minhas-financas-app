@@ -114,6 +114,25 @@ export function MyReleases() {
         })
     }
 
+    //Método que realiza a alteração do status
+    const changeStatus = (lancamento, status) => {
+        lauchService.changeStatus(lancamento.id, status)
+        .then( response => {
+            const releaseList = lancamentos;
+            const identificate = releaseList.indexOf(lancamento);
+
+            if(identificate !== -1) {
+                lancamento['status'] = status;
+                releaseList[identificate] = lancamento;
+                setLancamentos( (prevenState) => setLancamentos(releaseList));
+            }
+
+            SuccessMessage("Status alterado com sucesso!");
+        }).catch( error => {
+            ErrorMessage("Ocorreu um erro ao tentar atualizar o status !");
+        }) 
+    }
+
     const footerDialog = () => {
         return (
             <div>
@@ -146,14 +165,15 @@ export function MyReleases() {
                         <div className="bs-component">
                             <ReleaseTable lancamentos={lancamentos}
                                 editAction={editRelease}
-                                deleteAction={handleDeletionConfirmation}/>
+                                deleteAction={handleDeletionConfirmation}
+                                modifyStatus={changeStatus}/>
                         </div>
                     </div>
                 </div>
                 <div>
                     <Dialog header="Filtro de Lançamento"
                             visible={isOpenFormFilter}
-                            style={{width: '60vw'}}
+                            style={{width: '80vw'}}
                             modal={true}
                             onHide={() => setIsOpenFormFilter(false)}>
                         <div className="row">
@@ -202,8 +222,8 @@ export function MyReleases() {
                         </div>
                         <div className="row">
                             <div className="col-md-6" style={{marginTop: '10px'}}>
-                                <button onClick={sendSearch} type="button" className="btn btn-success">Buscar</button>
-                                <button onClick={() => setIsOpenFormFilter(false)} type="button" className="btn btn-danger">Cancelar</button>
+                                <button onClick={sendSearch} type="button" className="btn btn-success"><i className="pi pi-search"></i> Buscar</button>
+                                <button onClick={() => setIsOpenFormFilter(false)} type="button" className="btn btn-danger"><i className="pi pi-times"></i> Cancelar</button>
                             </div>
                         </div>
                         <div className="row">
@@ -211,7 +231,8 @@ export function MyReleases() {
                                 <div className="bs-component">
                                     <ReleaseTable lancamentos={lancamentosFiltrados}
                                         editAction={editRelease}
-                                        deleteAction={handleDeletionConfirmation}/>
+                                        deleteAction={handleDeletionConfirmation}
+                                        modifyStatus={changeStatus}/>
                                 </div>
                             </div>
                         </div>

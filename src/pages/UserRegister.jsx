@@ -96,8 +96,8 @@ export function UserRegister() {
                                     placeholder="Digite sua senha novamente"/>
                             </FormGroup>
   
-                            <button onClick={sendRegisterUser} className="btn btn-success">Cadastrar</button>
-                            <Link to="/login" className="btn btn-danger">Cancelar</Link>
+                            <button onClick={sendRegisterUser} className="btn btn-success"><i className="pi pi-check"></i> Cadastrar</button>
+                            <Link to="/login" className="btn btn-danger"><i className="pi pi-times"></i> Cancelar</Link>
                         </fieldset>
                     </div>
                 </div>

@@ -74,8 +74,8 @@ export function Login() {
                                     placeholder="Digite sua senha"/>
                             </FormGroup>
 
-                            <button onClick={sendLogin} className="btn btn-success">Entrar</button>
-                            <Link to="/cadastro-usuarios" className="btn btn-danger">Cadastrar</Link>
+                            <button onClick={sendLogin} className="btn btn-success"><i className="pi pi-sign-in"></i> Entrar</button>
+                            <Link to="/cadastro-usuarios" className="btn btn-danger"><i className="pi pi-plus"></i> Cadastrar</Link>
                         </fieldset>
                     </div>
                 </div>

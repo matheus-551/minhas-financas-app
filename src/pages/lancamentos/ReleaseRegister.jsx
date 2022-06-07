@@ -181,12 +181,12 @@ export function ReleaseRegister() {
                         {
                             paramsURL.id 
                             ?
-                            <button onClick={updatedRelease} type="button" className="btn btn-success">Atualizar</button>
+                            <button onClick={updatedRelease} type="button" className="btn btn-success"><i className="pi pi-check"></i> Atualizar</button>
                             :
-                            <button onClick={sendRegisterRelease} type="button" className="btn btn-success">Cadastrar</button>
+                            <button onClick={sendRegisterRelease} type="button" className="btn btn-success"><i className="pi pi-check"></i> Cadastrar</button>
                         }
                         
-                        <Link to="/meus-lancamentos" className="btn btn-danger">Cancelar</Link>
+                        <Link to="/meus-lancamentos" className="btn btn-danger"><i className="pi pi-times"></i> Cancelar</Link>
                     </div>
                 </div>
             </fieldset>
