@@ -19,27 +19,30 @@ export function ReleaseTable(props) {
                     :            
                     <td>
                         <button type="button"
+                                title="Cancelar Status"
                                 disabled={ lancamento.status !== "PENDENTE"}
                                 className="btn btn-secondary"
                                 onClick={e => props.modifyStatus(lancamento, "CANCELADO")}>
-                            CANCELAR 
+                            <i className="pi pi-times"></i>
                         </button>
                         <button type="button"
+                                title="Efetivar Status"
                                 disabled={ lancamento.status !== "PENDENTE"}
                                 className="btn btn-success"
                                 onClick={e => props.modifyStatus(lancamento, "EFETIVADO")}>
-                            EFETIVAR 
+                            <i className="pi pi-check"></i> 
                         </button>
                         <button type="button" 
+                                title="editar"
                                 className="btn btn-primary"
                                 onClick={e => props.editAction(lancamento)}>
-
-                            <i className="pi pi-pencil"></i> EDITAR 
+                            <i className="pi pi-pencil"></i>
                         </button>
                         <button type="button" 
+                                title="deletar"
                                 className="btn btn-danger"
                                 onClick={e => props.deleteAction(lancamento)}>
-                            <i className="pi pi-trash"></i>  DELETAR 
+                            <i className="pi pi-trash"></i>  
                         </button>
                     </td> 
                 }
