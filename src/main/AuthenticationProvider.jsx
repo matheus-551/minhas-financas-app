@@ -34,3 +34,5 @@ function AuthenticationProvider(props) {
         </AuthProvider>
     )
 }
+
+export default AuthenticationProvider;
