@@ -1,10 +1,15 @@
 import React from 'react';
 
-export function NavbarItem(props) {
+export function NavbarItem({render, ...props}) {
 
-    return (
-        <li className="nav-item">
-            <a className="nav-link" href={props.href}>{props.label}</a>
-        </li>
-    )
+    if(render) {
+        return (
+            <li className="nav-item">
+                <a onClick={props.click} className="nav-link" href={props.href}>{props.label}</a>
+            </li>
+        )
+    }else {
+        return false
+    }
+
 }

@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React,{ useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Card } from '../components/Card';
@@ -7,7 +7,8 @@ import { ErrorMessage, SuccessMessage } from '../components/toastr';
 
 import UserService from '../app/service/UserService';
 
-export function Login() {
+export function Login() {    
+
     //Instanciando a classe do usuario service
     const userService = new UserService();
     
@@ -40,7 +41,7 @@ export function Login() {
 
         userService.authenticate(credentials)
         .then( response => {
-            localStorage.getItem("logged_user", JSON.stringify(response.data));
+            localStorage.setItem("logged_user", JSON.stringify(response.data));
             SuccessMessage("Usuário logado com sucesso !");
             navegate("/home");
         }).catch( error => {

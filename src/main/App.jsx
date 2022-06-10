@@ -16,10 +16,12 @@ import "primeicons/primeicons.css";
 function App() {
 
   return (
-    <div className="container">
+    <>
       <Navbar/>
-      <AppRoute/>
-    </div>
+      <div className="container">
+        <AppRoute/>
+      </div>
+    </>
   )
 }
 
